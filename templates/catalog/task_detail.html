@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>{{ task.name }}</h1>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+    <p><strong>Completed:</strong> {{ task.is_completed }}</p>
+    <p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
+    <p><strong>Task Type:</strong> {{ task.task_type.name }}</p>
+    <p><strong>Assignees:</strong></p>
+    <ul>
+      {% for assignee in task.assignees.all %}
+        <li>{{ assignee.username }}</li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'catalog:task-update' task.id %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'catalog:task-delete' task.id %}" class="btn btn-danger">Delete</a>
+  </div>
+{% endblock %}

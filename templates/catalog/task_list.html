@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Tasks List
+       <a href="{% url 'catalog:task-create' %}" class="btn btn-primary link-to-page">
+        Create
+       </a>
+    </h1>
+    <br>
+
+      <form method="get">
+          {{ filter.form.as_p }}
+          <button type="submit" class="btn btn-primary">Filter</button>
+      </form>
+
+    
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Is Completed</th>
+                <th>Priority</th>
+                <th>Task Type</th>
+                <th>Assignees</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+              <td><a href="{% url 'catalog:task-detail' pk=task.id %}">{{ task.name }}</a></td>
+                <td>{{ task.description|truncatewords:10 }}</td>
+                <td>{{ task.deadline }}</td>
+                <td>{{ task.is_completed|yesno:"Yes,No" }}</td>
+                <td>{{ task.get_priority_display }}</td>
+                <td>{{ task.task_type.name }}</td>
+                <td>
+                    <ul>
+                        {% for assignee in task.assignees.all %}
+                        <li>{{ assignee.username }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No tasks available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
