@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ worker.username }}'s Profile</h1>
+    <a href="{% url 'catalog:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+    <a href="{% url 'catalog:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+    <br>
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Username</th>
+                <td>{{ worker.username }}</td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <td>{{ worker.first_name|default:"No First Name" }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ worker.last_name|default:"No Last Name" }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ worker.email|default:"No Email" }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ worker.position.name|default:"No Position" }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Completed Tasks</h2>
+    <ul>
+        {% for task in worker.task_completed.all %}
+        <li>{{ task.name }}</li>
+        {% empty %}
+        <li>No completed tasks</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Not Completed Tasks</h2>
+    <ul>
+        {% for task in worker.tasks_not_completed.all %}
+        <li>{{ task.name }}</li>
+        {% empty %}
+        <li>No not completed tasks</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
