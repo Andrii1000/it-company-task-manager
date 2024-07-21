@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 from taskManager import settings
 
@@ -24,14 +25,17 @@ class Worker(AbstractUser):
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
 
+    def get_absolute_url(self):
+        return reverse("catalog:worker-detail", kwargs={"pk": self.pk})
+
 
 class Task(models.Model):
-    PRIORITY_CHOICES = {
-        "URGENT": "Urgent",
-        "HIGH": "High",
-        "MEDIUM": "Medium",
-        "LOW": "Low",
-    }
+    PRIORITY_CHOICES = [
+        ("URGENT", "Urgent"),
+        ("HIGH", "High"),
+        ("MEDIUM", "Medium"),
+        ("LOW", "Low"),
+    ]
     name = models.CharField(max_length=255)
     description = models.TextField()
     deadline = models.DateField()
