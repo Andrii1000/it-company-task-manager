@@ -1,7 +1,14 @@
-{% extends "base.html" %}
+{% extends 'layouts/base_sections.html' %}
 {% load crispy_forms_filters %}
+{% load static %}
+
+{% block title %} IT Task Manager - Tasks List {% endblock title %}
+
+{% block body %} class="index-page bg-gray-200" {% endblock body %}
 
 {% block content %}
+
+
 <div class="container mt-5">
     <h1>Tasks List
        <a href="{% url 'catalog:task-create' %}" class="btn btn-primary link-to-page">
@@ -9,13 +16,15 @@
        </a>
     </h1>
     <br>
+    <div class="row text-center py-2 mt-2">
+      <div class="col-4 mx-auto">
+        <form method="get" action="" class="form-inline">
+            {{ search_form|crispy }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+   </div>
 
-      <form method="get">
-          {{ filter.form.as_p }}
-          <button type="submit" class="btn btn-primary">Filter</button>
-      </form>
-
-    
     <br>
     <table class="table table-striped">
         <thead>
@@ -53,5 +62,52 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination justify-content-center">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo;</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}"> &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </div>
-{% endblock %}
+
+{% endblock content %}
+
+{% block javascripts %}
+<script type="text/javascript">
+  if (document.getElementById('state1')) {
+    const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+    if (!countUp.error) {
+      countUp.start();
+    } else {
+      console.error(countUp.error);
+    }
+  }
+  if (document.getElementById('state2')) {
+    const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+    if (!countUp1.error) {
+      countUp1.start();
+    } else {
+      console.error(countUp1.error);
+    }
+  }
+  if (document.getElementById('state3')) {
+    const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+    if (!countUp2.error) {
+      countUp2.start();
+    } else {
+      console.error(countUp2.error);
+    };
+  }
+</script>
+{% endblock javascripts %}

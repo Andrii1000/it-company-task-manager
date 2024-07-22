@@ -1,7 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base_sections.html' %}
+{% load static %}
 {% load crispy_forms_filters %}
+
+{% block title %}{{ worker.username }}'s Profile - IT Task Manager{% endblock title %}
+
+{% block body %} class="index-page bg-gray-200" {% endblock body %}
+
 {% block content %}
-<div class="container mt-5">
+<section class="pt-3 pb-4" id="worker-profile">
+  <div class="container mt-5">
     <h1>{{ worker.username }}'s Profile</h1>
     <a href="{% url 'catalog:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
       Delete
@@ -10,47 +17,55 @@
       Update
     </a>
     <br>
-    <table class="table table-striped">
-        <tbody>
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{% static 'img/annie-spratt.jpg' %}" class="img-fluid rounded-circle" alt="User Picture">
+      </div>
+      <div class="col-md-8">
+        <table class="table table-striped mt-3">
+          <tbody>
             <tr>
-                <th>Username</th>
-                <td>{{ worker.username }}</td>
+              <th>Username</th>
+              <td>{{ worker.username }}</td>
             </tr>
             <tr>
-                <th>First Name</th>
-                <td>{{ worker.first_name|default:"No First Name" }}</td>
+              <th>First Name</th>
+              <td>{{ worker.first_name|default:"No First Name" }}</td>
             </tr>
             <tr>
-                <th>Last Name</th>
-                <td>{{ worker.last_name|default:"No Last Name" }}</td>
+              <th>Last Name</th>
+              <td>{{ worker.last_name|default:"No Last Name" }}</td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ worker.email|default:"No Email" }}</td>
+              <th>Email</th>
+              <td>{{ worker.email|default:"No Email" }}</td>
             </tr>
             <tr>
-                <th>Position</th>
-                <td>{{ worker.position.name|default:"No Position" }}</td>
+              <th>Position</th>
+              <td>{{ worker.position.name|default:"No Position" }}</td>
             </tr>
-        </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <h2>Completed Tasks</h2>
     <ul>
-        {% for task in worker.task_completed.all %}
-        <li>{{ task.name }}</li>
-        {% empty %}
-        <li>No completed tasks</li>
-        {% endfor %}
+      {% for task in completed_tasks %}
+      <li>{{ task.name }}</li>
+      {% empty %}
+      <li>No completed tasks</li>
+      {% endfor %}
     </ul>
 
     <h2>Not Completed Tasks</h2>
     <ul>
-        {% for task in worker.tasks_not_completed.all %}
-        <li>{{ task.name }}</li>
-        {% empty %}
-        <li>No not completed tasks</li>
-        {% endfor %}
+      {% for task in not_completed_tasks %}
+      <li>{{ task.name }}</li>
+      {% empty %}
+      <li>No not completed tasks</li>
+      {% endfor %}
     </ul>
-</div>
-{% endblock %}
+  </div>
+</section>
+{% endblock content %}
