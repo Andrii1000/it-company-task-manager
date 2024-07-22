@@ -7,7 +7,12 @@ from catalog.forms import (
     WorkerSearchForm,
     TaskSearchForm
 )
-from catalog.models import Worker, Task, Position, TaskType
+from catalog.models import (
+    Worker,
+    Task,
+    Position,
+    TaskType
+)
 
 
 class TaskFormTest(TestCase):

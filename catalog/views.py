@@ -6,8 +6,18 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 
-from catalog.forms import WorkerForm, TaskForm, WorkerRegistrationForm, WorkerSearchForm, TaskSearchForm
-from catalog.models import Worker, Task, Position
+from catalog.forms import (
+    WorkerForm,
+    TaskForm,
+    WorkerRegistrationForm,
+    WorkerSearchForm,
+    TaskSearchForm
+)
+from catalog.models import (
+    Worker,
+    Task,
+    Position
+)
 
 
 @login_required

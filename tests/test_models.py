@@ -1,10 +1,16 @@
 # test_models.py
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from catalog.models import TaskType, Position, Worker, Task
+from catalog.models import (
+    TaskType,
+    Position,
+    Worker,
+    Task
+)
 from django.urls import reverse
 
 User = get_user_model()
+
 
 class TaskTypeModelTest(TestCase):
 

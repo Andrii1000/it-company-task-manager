@@ -1,8 +1,19 @@
 from django.urls import path
 
-from catalog.views import index, TaskListView, WorkerListView, WorkerDetailView, WorkerCreateView, WorkerUpdateView, \
-    WorkerDeleteView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView, custom_logout_view, \
-    register_worker
+from catalog.views import (
+    index,
+    TaskListView,
+    WorkerListView,
+    WorkerDetailView,
+    WorkerCreateView,
+    WorkerUpdateView,
+    WorkerDeleteView,
+    TaskDetailView,
+    TaskCreateView,
+    TaskUpdateView,
+    TaskDeleteView,
+    custom_logout_view
+)
 
 urlpatterns = [
     path("", index, name="index"),
