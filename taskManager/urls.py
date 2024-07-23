@@ -25,4 +25,5 @@ urlpatterns = [
     path("", include("catalog.urls", namespace="catalog")),
     path("accounts/", include("django.contrib.auth.urls")),
     path('accounts/register/', register_worker, name='register'),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
