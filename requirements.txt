@@ -4,11 +4,11 @@ black==24.4.2
 click==8.1.7
 colorama==0.4.6
 dill==0.3.8
-dj-database-url==2.2.0
+dj-database-url
 Django==4.1
 django-crispy-forms==1.14.0
-django-debug-toolbar==3.2.4
-django-filter==24.2
+django-debug-toolbar
+django-filter
 flake8==5.0.4
 flake8-for-pycharm==0.4.1
 flake8-quotes==3.3.1
