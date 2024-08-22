@@ -64,8 +64,14 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         worker = self.object
-        context['completed_tasks'] = Task.objects.filter(assignees=worker, is_completed=True)
-        context['not_completed_tasks'] = Task.objects.filter(assignees=worker, is_completed=False)
+        context['completed_tasks'] = Task.objects.filter(
+            assignees=worker,
+            is_completed=True
+        )
+        context['not_completed_tasks'] = Task.objects.filter(
+            assignees=worker,
+            is_completed=False
+        )
         return context
 
 
@@ -88,7 +94,8 @@ class WorkerDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    queryset = Task.objects.select_related("task_type").prefetch_related("assignees")
+    queryset = (Task.objects.select_related("task_type")
+                .prefetch_related("assignees"))
     ordering = ["deadline"]
     paginate_by = 6
     context_object_name = "tasks"
