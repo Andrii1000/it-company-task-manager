@@ -11,7 +11,13 @@ from catalog.models import (
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("name", "priority", "deadline", "task_type", "is_completed")
+    list_display = (
+        "name",
+        "priority",
+        "deadline",
+        "task_type",
+        "is_completed"
+    )
     search_fields = ("name",)
     list_filter = ("is_completed", "task_type", "priority",)
 

@@ -35,7 +35,10 @@ class WorkerForm(forms.ModelForm):
 
 class WorkerRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
-    confirm_password = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput,
+        label="Confirm Password"
+    )
 
     class Meta:
         model = Worker
