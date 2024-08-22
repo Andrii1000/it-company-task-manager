@@ -20,6 +20,7 @@ from django.urls import path, include
 
 from catalog.views import register_worker
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("catalog.urls", namespace="catalog")),
